@@ -4,13 +4,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
+import { Button } from '@react-navigation/elements';
+import { useRouter } from 'expo-router';
 
 export default function DashboardScreen() {
+  const routePage = useRouter();
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ThemedText type="title">Dashboard</ThemedText>
         <ThemedText>Welcome to FreeSwing!</ThemedText>
+        <Button
+        onPress={() => routePage.push("/(profile)/userProfile")}
+        >Profile Page</Button>
       </SafeAreaView>
     </ThemedView>
   );
