@@ -21,7 +21,7 @@ export default function TabLayout() {
         },
       }}>
       <Tabs.Screen
-        name="dashboard"
+        name="dashboard/index"
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color, size }) => (
@@ -31,7 +31,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="newRound"
+        name="newRound/index"
         options={{
           title: 'New Round',
           tabBarIcon: ({ color, size }) => (
@@ -41,7 +41,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="tournaments"
+        name="tournaments/index"
         options={{
           title: 'Tournaments',
           tabBarIcon: ({ color, size }) => (
@@ -51,7 +51,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="bookGame"
+        name="bookGame/index"
         options={{
           title: 'Book',
           tabBarIcon: ({ color, size }) => (
@@ -61,7 +61,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="shop"
+        name="shop/index"
         options={{
           title: 'Shop',
           tabBarIcon: ({ color, size }) => (
