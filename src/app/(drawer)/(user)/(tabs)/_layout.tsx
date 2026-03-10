@@ -71,7 +71,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="newRound"
         options={{
-          title: 'New Round',
+          title: 'Start New Round',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
@@ -89,9 +89,19 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="shop"
+        name="bookGame/index"
         options={{
-          title: 'Shop',
+          title: 'Book',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="calendar-outline" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="shop/index"
+        options={{
+          title: 'Pro Shop',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart-outline" size={size} color={color} />
           ),
