@@ -31,7 +31,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="newRound/index"
+        name="newRound"
         options={{
           title: 'New Round',
           tabBarIcon: ({ color, size }) => (
@@ -53,7 +53,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="bookGame/index"
         options={{
-          title: 'Book',
+          title: 'Book Game',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar-outline" size={size} color={color} />
           ),

@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { Mail, ChartBar, Flag, Lock, UserIcon } from "lucide-react-native";
+import { Mail, ChartBar, Flag, UserIcon, BookA } from "lucide-react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Pressable, ScrollView, useColorScheme, View } from "react-native";
@@ -63,7 +63,7 @@ export default function UserProfile() {
             {/* Role */}
             <Box className="border border-gray-400 mt-3 px-5 py-2 rounded-full">
               <ThemedText style={{ fontSize: 14 }}>
-                Golf Player
+                Player
               </ThemedText>
             </Box>
 
@@ -123,7 +123,7 @@ export default function UserProfile() {
             <Divider />
 
             <HStack className="items-center gap-3">
-              <Lock size={20} color="#8bc34a" />
+              <BookA size={20} color="#8bc34a" />
               <VStack>
                 <ThemedText style={{ fontSize: 12, opacity: 0.6 }}>
                   Account Status
@@ -134,10 +134,8 @@ export default function UserProfile() {
                 </ThemedText>
               </VStack>
             </HStack>
-
           </VStack>
         </Box>
-
       </ScrollView>
     </ThemedView>
   );
