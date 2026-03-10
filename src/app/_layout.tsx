@@ -3,27 +3,27 @@ import { Stack } from "expo-router";
 import React, { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import * as SplashScreen from 'expo-splash-screen';
-import { useFonts } from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import * as SplashScreen from "expo-splash-screen";
+import { useFonts } from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+// Prevent splash screen auto hide
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  
-  const [loaded, error] = useFonts({
+
+  const [loaded] = useFonts({
     ...Ionicons.font,
   });
 
   useEffect(() => {
-    if (loaded || error) {
+    if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded, error]);
+  }, [loaded]);
 
-  if (!loaded && !error) {
+  if (!loaded) {
     return null;
   }
 
