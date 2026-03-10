@@ -1,156 +1,142 @@
-// import { ThemedText } from "@/components/themed-text";
-// import { ThemedView } from "@/components/themed-view";
-// // import {
-// //   Briefcase,
-// //   LockKeyhole,
-// //   Mail,
-// //   User,
-// //   UserPen,
-// // } from "lucide-react-native";
-// import { Ionicons } from "@expo/vector-icons";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import { Mail, ChartBar, Flag, UserIcon, BookA } from "lucide-react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-// import { HStack } from "@/components/hstack";
-// import { useRouter } from "expo-router";
-// import { useState } from "react";
-// import {
-//   Pressable,
-//   ScrollView,
-//   TouchableOpacity,
-//   useColorScheme,
-//   View
-// } from "react-native";
-// // import { VStack } from "@/components/ui/vstack";
-// import { Avatar } from "@/components/avatar";
-// import { Box } from "@/components/box";
-// import { Divider } from "@/components/divider";
-// import { VStack } from "@/components/vstack";
+import { Pressable, ScrollView, useColorScheme, View } from "react-native";
+import { useRouter } from "expo-router";
 
-// export default function UserProfile() {
-//   const [userData, setUserData] = useState<any>(null);
-//   const [showChangePas, setChangePas] = useState(false);
+import { HStack } from "@/components/hstack";
+import { Avatar } from "@/components/avatar";
+import { Box } from "@/components/box";
+import { Divider } from "@/components/divider";
+import { VStack } from "@/components/vstack";
 
-//   const [showEditProfile, setEditProfile] = useState(false);
+export default function UserProfile() {
+  const colorScheme = useColorScheme();
+  const router = useRouter();
+  const isDark = colorScheme === "dark";
 
-//   const colorScheme = useColorScheme();
+  return (
+    <ThemedView className="flex-1 pt-16 px-5">
+      <ScrollView showsVerticalScrollIndicator={false}>
 
-//   // const colorScheme = useColorScheme();
-//   const isDark = colorScheme === "dark";
+        {/* ================= HEADER ================= */}
+        <HStack className="items-center mb-6">
+          <Pressable onPress={() => router.back()}>
+            <Ionicons
+              name="arrow-back-outline"
+              size={24}
+              color={isDark ? "#fff" : "#020617"}
+            />
+          </Pressable>
 
-//   const routePage = useRouter();
+          <ThemedText style={{ fontSize: 20, fontWeight: "700", marginLeft: 12 }}>
+            Profile
+          </ThemedText>
+        </HStack>
 
-//   return (
-//     <>
-//       <ThemedView className="flex-1 p-5 pt-20">
-//         {/* ================= SCROLL CONTENT ================= */}
-//         <ScrollView showsVerticalScrollIndicator={false}>
-//           {/* HEADER */}
-//           <HStack>
-//             <Pressable onPress={() => routePage.back()}>
-//               <Ionicons
-//                 name="arrow-back-outline"
-//                 size={22}
-//                 color={colorScheme === "dark" ? "#ffffff" : "#020617"}
-//               />
-//             </Pressable>
-//           </HStack>
+        {/* ================= PROFILE CARD ================= */}
+        <Box className="rounded-3xl p-6 mb-6 bg-white/5">
+          <VStack className="items-center">
 
-//           {/* PROFILE */}
-//           <VStack className="items-center mb-8">
-//             {/* <Avatar size="xl" className="mb-4">
-//               <AvatarImage source={{ uri: user.imageUrl }} />
-//             </Avatar> */}
-//             <View
-//               style={{
-//                 borderWidth: 2,
-//                 borderColor: isDark ? "#ffffff" : "#dc2626",
-//                 borderRadius: 999,
-//                 padding: 3,
-//                 marginBottom: 16,
-//               }}
-//             >
-//               <Avatar size="xl">
-//                 {/* <AvatarImage source={{ uri: user.imageUrl }} /> */}
-//               </Avatar>
-//             </View>
+            {/* Avatar */}
+            <View
+              style={{
+                borderWidth: 3,
+                borderColor: "#8bc34a",
+                borderRadius: 999,
+                padding: 6,
+                marginBottom: 14,
+              }}
+            >
+              <Avatar size="xl">
+                <UserIcon size={38} color="#8bc34a" />
+              </Avatar>
+            </View>
 
-//             <ThemedText style={{ fontSize: 23, fontWeight: "700" }}>
-//               John Doe
-//             </ThemedText>
-//           </VStack>
+            {/* Name */}
+            <ThemedText style={{ fontSize: 22, fontWeight: "700" }}>
+              John Doe
+            </ThemedText>
 
-//           {/* DETAILS */}
-//           <Box className="bg-white/10 px-4 py-5 rounded-2xl border border-gray-200">
-//             <VStack space="md">
-//               <HStack className="items-center gap-3">
-//                 <User size={22} color="#dc2626" />
-//                 <VStack>
-//                   <ThemedText className="text-sm text-gray-400">
-//                     Username
-//                   </ThemedText>
-//                   <ThemedText>John Doe</ThemedText>
-//                 </VStack>
-//               </HStack>
+            {/* Role */}
+            <Box className="border border-gray-400 mt-3 px-5 py-2 rounded-full">
+              <ThemedText style={{ fontSize: 14 }}>
+                Player
+              </ThemedText>
+            </Box>
 
-//               <Divider />
+          </VStack>
+        </Box>
 
-//               <HStack className="items-center gap-3">
-//                 <Mail size={20} color="#dc2626" />
-//                 <VStack>
-//                   <ThemedText className="text-sm text-gray-400">
-//                     Email
-//                   </ThemedText>
-//                   <ThemedText>johndoemail.com</ThemedText>
-//                 </VStack>
-//               </HStack>
+        {/* ================= STATS ================= */}
+        <HStack className="justify-between mb-6">
 
-//               <Divider />
+          <Box className="flex-1 mr-2 p-4 rounded-xl bg-white/10 border border-[#8bc34a]">
+            <VStack className="items-center">
+              <ChartBar size={22} color="#8bc34a" />
 
-//               <HStack className="items-center gap-3">
-//                 <Briefcase size={20} color="#dc2626" />
-//                 <VStack>
-//                   <ThemedText className="text-sm text-gray-400">
-//                     Organisation
-//                   </ThemedText>
-//                   <ThemedText>klark</ThemedText>
-//                 </VStack>
-//               </HStack>
-//             </VStack>
-//           </Box>
+              <ThemedText style={{ fontSize: 18, fontWeight: "700", marginTop: 4 }}>
+                3
+              </ThemedText>
 
-//           {/* BUTTONS */}
+              <ThemedText style={{ fontSize: 12, opacity: 0.6 }}>
+                Handicap Index
+              </ThemedText>
+            </VStack>
+          </Box>
 
-//           <VStack className="mt-8" space="md">
-//             <TouchableOpacity
-//               activeOpacity={0.8}
-//               style={{
-//                 backgroundColor: "#dc2626",
-//                 paddingVertical: 16,
-//                 borderRadius: 12,
-//                 flexDirection: "row",
-//                 justifyContent: "center",
-//                 gap: 8,
-//               }}
-//               onPress={() => setEditProfile(true)}
-//             >
-//               <UserPen size={20} color="white" />
-//               <ThemedText style={{ color: "white", fontWeight: "600" }}>
-//                 Edit Profile
-//               </ThemedText>
-//             </TouchableOpacity>
+          <Box className="flex-1 ml-2 p-4 rounded-xl bg-white/10 border border-[#8bc34a]">
+            <VStack className="items-center">
+              <Flag size={22} color="#8bc34a" />
 
-//             <TouchableOpacity
-//               activeOpacity={0.8}
-//               className="bg-black rounded-xl py-4 flex-row justify-center gap-2"
-//               onPress={() => setChangePas(true)}
-//             >
-//               <LockKeyhole size={20} color="white" />
-//               <ThemedText style={{ color: "white", fontWeight: "600" }}>
-//                 Change Password
-//               </ThemedText>
-//             </TouchableOpacity>
-//           </VStack>
-//         </ScrollView>
-//       </ThemedView>
-//     </>
-//   );
-// }
+              <ThemedText style={{ fontSize: 18, fontWeight: "700", marginTop: 4 }}>
+                5
+              </ThemedText>
+
+              <ThemedText style={{ fontSize: 12, opacity: 0.6 }}>
+                Handicap
+              </ThemedText>
+            </VStack>
+          </Box>
+
+        </HStack>
+
+        {/* ================= DETAILS ================= */}
+        <Box className="rounded-2xl border border-[#8bc34a] p-5 bg-white/10">
+          <VStack space="lg">
+
+            <HStack className="items-center gap-3">
+              <Mail size={20} color="#8bc34a" />
+              <VStack>
+                <ThemedText style={{ fontSize: 12, opacity: 0.6 }}>
+                  Email
+                </ThemedText>
+
+                <ThemedText>
+                  johndoe@email.com
+                </ThemedText>
+              </VStack>
+            </HStack>
+
+            <Divider />
+
+            <HStack className="items-center gap-3">
+              <BookA size={20} color="#8bc34a" />
+              <VStack>
+                <ThemedText style={{ fontSize: 12, opacity: 0.6 }}>
+                  Account Status
+                </ThemedText>
+
+                <ThemedText style={{ color: "#8bc34a", fontWeight: "600" }}>
+                  Active
+                </ThemedText>
+              </VStack>
+            </HStack>
+          </VStack>
+        </Box>
+      </ScrollView>
+    </ThemedView>
+  );
+}

@@ -4,11 +4,11 @@
     "slug": "freeswing-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo/FreeSwing.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "freeswingapp",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/logo/FreeSwing.png"
+      "icon": "./assets/images/icon.png"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.campzeoapp.freeswingapp"
     },
     "web": {
       "output": "static",
@@ -34,11 +35,7 @@
             "imageWidth": 76
           }
         }
-      ],
-      "expo-font",
-      "expo-web-browser"
-      ],
-      "@react-native-community/datetimepicker"
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
