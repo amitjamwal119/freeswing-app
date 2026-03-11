@@ -11,7 +11,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+// Prevent splash screen auto hide 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
