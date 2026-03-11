@@ -65,7 +65,14 @@ export function OverviewTab({ cards, handleLike }: OverviewTabProps) {
             {cards.map((card) => (
                 <Box
                     key={card.id}
-                    className="bg-background-0 rounded-2xl border border-outline-200 overflow-hidden"
+                    className="bg-white rounded-3xl border border-gray-100 overflow-hidden mb-4 shadow-sm"
+                    style={{
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 2 },
+                        shadowOpacity: 0.05,
+                        shadowRadius: 10,
+                        elevation: 2
+                    }}
                 >
                     {/* Header row */}
                     <HStack className="px-4 pt-4 pb-3 justify-between items-start">
@@ -121,19 +128,21 @@ export function OverviewTab({ cards, handleLike }: OverviewTabProps) {
                     </HStack>
 
                     {/* Gross Score block */}
-                    <Box className="mx-4 mb-3 bg-background-50 rounded-2xl py-6 items-center">
-                        <Text className="text-5xl font-black text-typography-900">
+                    <Box className="mx-4 mb-4 bg-gray-50 rounded-2xl py-8 items-center border border-gray-100">
+                        <Text className="text-6xl font-black text-gray-900 tracking-tighter">
                             {card.grossScore}
                         </Text>
-                        <Text
-                            style={{ color: diffColor(card.grossDiff) }}
-                            className="text-lg font-bold mt-1"
-                        >
-                            {diffLabel(card.grossDiff)}
-                        </Text>
-                        <Text className="text-[10px] uppercase tracking-widest text-typography-400 mt-1">
-                            Gross Score
-                        </Text>
+                        <HStack space="xs" className="items-center mt-1">
+                            <Text
+                                style={{ color: diffColor(card.grossDiff) }}
+                                className="text-xl font-bold"
+                            >
+                                {diffLabel(card.grossDiff)}
+                            </Text>
+                            <Text className="text-[10px] uppercase font-bold text-gray-400 tracking-widest ml-1">
+                                Gross
+                            </Text>
+                        </HStack>
                     </Box>
 
                     {/* NET / POINTS / PAR */}
@@ -163,30 +172,29 @@ export function OverviewTab({ cards, handleLike }: OverviewTabProps) {
                     <Divider className="bg-outline-100" />
 
                     {/* Footer */}
-                    <HStack className="px-4 py-3 justify-between items-center">
-                        <HStack space="md" className="items-center">
+                    <HStack className="px-4 py-4 justify-between items-center bg-gray-50/50">
+                        <HStack space="lg" className="items-center">
                             <Pressable
                                 onPress={() => handleLike(card.id)}
                                 className="flex-row items-center"
                             >
-                                <Ionicons name="heart-outline" size={18} color="#9ca3af" />
-                                <Text className="text-typography-400 text-xs ml-1">
+                                <Ionicons name="heart-outline" size={20} color="#6b7280" />
+                                <Text className="text-gray-500 text-sm font-semibold ml-1.5">
                                     {card.likes}
                                 </Text>
                             </Pressable>
-                            <Pressable>
-                                <Ionicons name="people-outline" size={18} color="#9ca3af" />
+                            <Pressable className="bg-gray-200/50 p-2 rounded-full">
+                                <Ionicons name="share-social-outline" size={18} color="#6b7280" />
                             </Pressable>
                         </HStack>
 
-                        <HStack space="sm" className="items-center">
+                        <HStack space="md" className="items-center">
                             <Button
                                 size="sm"
-                                variant="outline"
-                                className="rounded-full border-info-300 bg-info-50 gap-1"
+                                className="rounded-full bg-[#8BC34A] px-6 h-10 shadow-sm"
                             >
-                                <Ionicons name="eye-outline" size={13} color="#0284c7" />
-                                <ButtonText className="text-info-600 text-xs font-semibold">
+                                <Ionicons name="eye-outline" size={14} color="white" />
+                                <ButtonText className="text-white text-xs font-bold ml-1.5">
                                     View
                                 </ButtonText>
                             </Button>

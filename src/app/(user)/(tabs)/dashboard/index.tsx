@@ -2,7 +2,6 @@ import { Badge } from "@/components/badge";
 import { Box } from "@/components/box";
 import { HStack } from "@/components/hstack";
 import { Text } from "@/components/text";
-import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { VStack } from "@/components/vstack";
 import { Spacing } from '@/constants/theme';
@@ -166,14 +165,15 @@ export default function DashboardScreen() {
         contentContainerStyle={styles.scrollContent}
       >
         <ThemedView style={styles.container}>
-          <ThemedText>Player Dashboard</ThemedText>
+          {/* <ThemedText>Player Dashboard</ThemedText> */}
           {loading ? (
             <ActivityIndicator size="small" color="#dc2626" />
           ) : (
-            <ThemedText type="subtitle">Welcome back, {playerName}</ThemedText>
+            <VStack className="mt-2">
+              <Text className="text-gray-500">Welcome back 👋</Text>
+              <Text className="text-3xl font-bold">Kunal</Text>
+            </VStack>
           )}
-          <ThemedText>Track your progress and manage your games.</ThemedText>
-
           {/* Tabs */}
           <View className="flex-row items-center bg-gray-100 p-1 rounded-full justify-between">
             {tabs.map((tab) => {
@@ -182,7 +182,7 @@ export default function DashboardScreen() {
                 <Pressable
                   key={tab.key}
                   onPress={() => setActiveTab(tab.key)}
-                  className={`flex-row items-center px-4 py-2 rounded-full ${active ? "bg-green-500" : ""
+                  className={`flex-row items-center px-4 py-2 rounded-full ${active ? "bg-[#8BC34A]" : ""
                     }`}
                 >
                   <Text
@@ -201,10 +201,14 @@ export default function DashboardScreen() {
               <VStack space="md">
                 {/* Row 1 */}
                 <HStack space="md">
+
                   {/* Card 1 */}
                   <Box className="flex-1 bg-white p-4 rounded-xl border border-gray-200">
+
                     <HStack className="justify-between items-center">
+
                       <VStack className="space-y-1">
+
                         <Text className="text-3xl font-bold">3</Text>
                         <Text className="text-sm text-gray-500 font-medium">
                           COURSES PLAYED
@@ -213,8 +217,8 @@ export default function DashboardScreen() {
                           <Text className="text-xs">Unique</Text>
                         </Badge>
                       </VStack>
-                      <Box className="bg-amber-100 p-3 rounded-xl items-center justify-center">
-                        <Ionicons name="location" size={22} color="#d97706" />
+                      <Box className="bg-amber-100 p-3 rounded-full items-center justify-center mb-10">
+                        <Ionicons name="location" size={15} color="#d97706" />
                       </Box>
                     </HStack>
                   </Box>
@@ -231,8 +235,8 @@ export default function DashboardScreen() {
                           <Text className="text-xs">Per 18 Holes</Text>
                         </Badge>
                       </VStack>
-                      <Box className="bg-blue-100 p-3 rounded-full items-center justify-center">
-                        <Ionicons name="stats-chart-outline" size={22} color="#06abd4" />
+                      <Box className="bg-blue-100 p-3 rounded-full items-center justify-center mb-10">
+                        <Ionicons name="stats-chart-outline" size={15} color="#06abd4" />
                       </Box>
                     </HStack>
                   </Box>
@@ -252,8 +256,8 @@ export default function DashboardScreen() {
                           <Text className="text-xs">Personal Best</Text>
                         </Badge>
                       </VStack>
-                      <Box className="bg-green-100 p-3 rounded-full items-center justify-center">
-                        <Ionicons name="star" size={22} color="#06d428" />
+                      <Box className="bg-green-100 p-3 rounded-full items-center justify-center mb-10">
+                        <Ionicons name="star" size={15} color="#06d428" />
                       </Box>
                     </HStack>
                   </Box>
@@ -270,8 +274,8 @@ export default function DashboardScreen() {
                           <Text className="text-xs">Portable Index</Text>
                         </Badge>
                       </VStack>
-                      <Box className="bg-purple-100 p-3 rounded-full items-center justify-center">
-                        <Ionicons name="flag" size={22} color="#2fe228ff" />
+                      <Box className="bg-green-100 p-3 rounded-full items-center justify-center mb-10">
+                        <Ionicons name="flag" size={15} color="#2fe228ff" />
                       </Box>
                     </HStack>
                   </Box>
@@ -324,8 +328,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 40,
-    // flexGrow: 1,
+    paddingBottom: 100,
+    flexGrow: 1,
   },
   container: {
     paddingHorizontal: Spacing.four,

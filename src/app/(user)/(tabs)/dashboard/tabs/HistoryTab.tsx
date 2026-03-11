@@ -1,5 +1,6 @@
 import { Badge, BadgeText } from "@/components/badge";
 import { Box } from "@/components/box";
+import { Button, ButtonText } from "@/components/button";
 import { HStack } from "@/components/hstack";
 import { Text } from "@/components/text";
 import { VStack } from "@/components/vstack";
@@ -43,6 +44,12 @@ export function HistoryTab({ games, onViewGame }: HistoryTabProps) {
                                 <VStack>
                                     <Text className="font-bold text-gray-900">{item.date}</Text>
                                     <Text className="text-xs text-gray-400">{item.time}</Text>
+                                    <Button size="sm" className="rounded-full bg-[#8BC34A] px-6 h-10 shadow-sm">
+                                        <Ionicons name="eye-outline" size={14} color="white" />
+                                        <ButtonText className="text-white text-xs font-bold ml-1.5">
+                                            View
+                                        </ButtonText>
+                                    </Button>
                                 </VStack>
                                 {item.isTournament && (
                                     <Badge className="bg-cyan-400 rounded-full px-3 py-1">
@@ -52,7 +59,7 @@ export function HistoryTab({ games, onViewGame }: HistoryTabProps) {
                             </HStack>
 
                             {/* Course name */}
-                            <Text className="text-green-500 font-semibold text-sm mb-3">
+                            <Text className="text-[#8BC34A] font-semibold text-sm mb-3">
                                 {item.course}
                             </Text>
 

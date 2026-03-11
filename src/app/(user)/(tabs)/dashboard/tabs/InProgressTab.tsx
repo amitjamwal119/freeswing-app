@@ -71,7 +71,7 @@ export function InProgressTab({ games, onDelete, onResume }: InProgressTabProps)
                                 <Button
                                     size="sm"
                                     onPress={() => onResume(game.id)}
-                                    className="bg-green-500 rounded-full h-10 w-[48%] flex-row items-center justify-center flex-1 ml-2"
+                                    className="bg-[#8BC34A] rounded-full h-10 w-[48%] flex-row items-center justify-center flex-1 ml-2"
                                 >
                                     <Text className="text-white text-sm font-semibold mr-1.5">Resume</Text>
                                     <Ionicons name="arrow-forward" size={14} color="white" />
