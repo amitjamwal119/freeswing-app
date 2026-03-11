@@ -11,8 +11,8 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HistoryTab } from "./tabs/HistoryTab";
-import { InProgressTab } from "./tabs/InProgressTab";
+import { HistoryTab, type GameHistory } from "./tabs/HistoryTab";
+import { InProgressTab, type InProgressGame } from "./tabs/InProgressTab";
 import { OverviewTab, type Scorecard } from "./tabs/OverviewTab";
 
 // ─── TODO: swap this function with your real API call ─────────────────────────
@@ -58,13 +58,91 @@ const HARDCODED_CARDS: Scorecard[] = [
   },
 ];
 
+const HARDCODED_IN_PROGRESS: InProgressGame[] = [
+  {
+    id: "1",
+    courseName: "ASC AEPTA",
+    date: "Mar 9, 2026, 5:51:42 PM",
+    holesPlayed: 1,
+  },
+];
+
+const HARDCODED_HISTORY: GameHistory[] = [
+  {
+    id: "1",
+    date: "Mar 10, 2026",
+    time: "6:46 PM",
+    course: "Bangalore Golf Club",
+    score: 105,
+    net: 105,
+    parDiff: 72,
+    isTournament: false,
+  },
+  {
+    id: "2",
+    date: "Mar 10, 2026",
+    time: "6:00 PM",
+    course: "ASC AEPTA",
+    score: 0,
+    net: 0,
+    parDiff: 72,
+    isTournament: false,
+  },
+  {
+    id: "3",
+    date: "Mar 10, 2026",
+    time: "5:00 PM",
+    course: "Bangalore Golf Club",
+    score: 62,
+    net: 62,
+    parDiff: 72,
+    isTournament: false,
+  },
+  {
+    id: "4",
+    date: "Mar 10, 2026",
+    time: "4:57 PM",
+    course: "ASC AEPTA",
+    score: 0,
+    net: 0,
+    parDiff: 72,
+    isTournament: false,
+  },
+  {
+    id: "5",
+    date: "Mar 5, 2026",
+    time: "11:52 PM",
+    course: "12345",
+    score: 72,
+    net: 68,
+    parDiff: 72,
+    isTournament: true,
+  },
+];
+
 export default function DashboardScreen() {
   const [cards, setCards] = useState<Scorecard[]>(HARDCODED_CARDS);
+  const [inProgressGames, setInProgressGames] = useState<InProgressGame[]>(HARDCODED_IN_PROGRESS);
+  const [gameHistory, setGameHistory] = useState<GameHistory[]>(HARDCODED_HISTORY);
 
   const handleLike = (id: string) =>
     setCards((prev) =>
       prev.map((c) => (c.id === id ? { ...c, likes: c.likes + 1 } : c))
     );
+
+  const handleDeleteInProgress = (id: string) => {
+    setInProgressGames((prev) => prev.filter((game) => game.id !== id));
+  };
+
+  const handleResumeInProgress = (id: string) => {
+    console.log("Resume game:", id);
+    // Navigate to resume game screen
+  };
+
+  const handleViewHistory = (id: string) => {
+    console.log("View history game:", id);
+    // Navigate to game details screen
+  };
 
   const [playerName, setPlayerName] = useState<string>('[Player Name]');
   const [loading, setLoading] = useState<boolean>(false);
@@ -83,8 +161,7 @@ export default function DashboardScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        style={{ flex: 1 }}
+      <ScrollView style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
@@ -223,8 +300,19 @@ export default function DashboardScreen() {
 
           {/* Tab Content */}
           {activeTab === "overview" && <OverviewTab cards={cards} handleLike={handleLike} />}
-          {activeTab === "progress" && <InProgressTab />}
-          {activeTab === "history" && <HistoryTab />}
+          {activeTab === "progress" && (
+            <InProgressTab
+              games={inProgressGames}
+              onDelete={handleDeleteInProgress}
+              onResume={handleResumeInProgress}
+            />
+          )}
+          {activeTab === "history" && (
+            <HistoryTab
+              games={gameHistory}
+              onViewGame={handleViewHistory}
+            />
+          )}
         </ThemedView>
       </ScrollView>
     </SafeAreaView>
@@ -236,7 +324,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    flexGrow: 1,
+    paddingBottom: 40,
+    // flexGrow: 1,
   },
   container: {
     paddingHorizontal: Spacing.four,
