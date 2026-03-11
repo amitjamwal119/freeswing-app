@@ -148,7 +148,7 @@ export default function GolfLoginScreen() {
                 shadowRadius: 6,
                 elevation: 4,
               }}
-              onPress={() => router.replace("/(user)/(tabs)/dashboard")}
+              onPress={() => router.replace("/(admin)/(tabs)/dashboard")}
             >
               <Text style={{ color: "#fff", fontWeight: "700", fontSize: 17 }}>Login</Text>
             </TouchableOpacity>
