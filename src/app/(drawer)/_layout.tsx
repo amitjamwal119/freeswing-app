@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   logoutButton: {
-    flexDirection: "row",
+    flexDirection:   "row",
     alignItems: "center",
     backgroundColor: "#2e7d32",
     paddingVertical: 14,

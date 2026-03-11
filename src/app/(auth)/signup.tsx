@@ -3,7 +3,7 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     Text,
-    TextInput,
+    TextInput , 
     TouchableOpacity,
     View,
     Modal,

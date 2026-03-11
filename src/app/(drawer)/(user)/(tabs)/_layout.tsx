@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { useColorScheme, Image, TouchableOpacity, View } from 'react-native';
+import {   useColorScheme, Image, TouchableOpacity, View } from 'react-native';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 
 import { Colors } from '@/constants/theme';

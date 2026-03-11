@@ -57,7 +57,7 @@ export default function GolfLoginScreen() {
               borderRadius: 24,
               padding: 28,
               marginHorizontal: 20,
-              shadowColor: "#000",
+              shadowColor: "#000", 
               shadowOffset: { width: 0, height: 6 },
               shadowOpacity: 0.15,
               shadowRadius: 12,
