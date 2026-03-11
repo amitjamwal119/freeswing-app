@@ -1,17 +1,17 @@
+import { Ionicons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
     KeyboardAvoidingView,
-    ScrollView,
-    Text,
-    TextInput , 
-    TouchableOpacity,
-    View,
     Modal,
     Platform,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { useRouter } from "expo-router";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Ionicons } from "@expo/vector-icons";
 
 export default function SignupScreen() {
     const router = useRouter();
@@ -335,7 +335,7 @@ export default function SignupScreen() {
                         style={{ backgroundColor: "#8bc34a" }}
                         onPress={handleSignup}
                     >
-                        <Text className="text-white font-bold text-lg">Sign Up</Text>
+                        <Text className="text-white font-bold text-lg" >Sign Up</Text>
                     </TouchableOpacity>
 
                     {/* Login */}

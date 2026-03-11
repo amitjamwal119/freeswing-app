@@ -22,10 +22,10 @@ export default function GolfLoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
 
   // Background image URL
-  // const bgImage = { uri: "https://images.pexels.com/photos/4171735/pexels-photo-4171735.jpeg" };
+  const bgImage = { uri: "https://images.pexels.com/photos/4171735/pexels-photo-4171735.jpeg" };
   // const bgImage = require("/assets/golf-bg.jpg")
   // const bgImage = require("/assets/golf-bggg.jpg")
-  const bgImage = require("/assets/golf-bg.jpg")
+//   const bgImage = require("/assets/golf-bg.jpg")
 
   return (
     <KeyboardAvoidingView
@@ -57,7 +57,7 @@ export default function GolfLoginScreen() {
               borderRadius: 24,
               padding: 28,
               marginHorizontal: 20,
-              shadowColor: "#000",
+              shadowColor: "#000", 
               shadowOffset: { width: 0, height: 6 },
               shadowOpacity: 0.15,
               shadowRadius: 12,
@@ -148,7 +148,7 @@ export default function GolfLoginScreen() {
                 shadowRadius: 6,
                 elevation: 4,
               }}
-              onPress={() => router.replace("/(drawer)/(user)/(tabs)/dashboard")}
+              onPress={() => router.replace("/(user)/(tabs)/dashboard")}
             >
               <Text style={{ color: "#fff", fontWeight: "700", fontSize: 17 }}>Login</Text>
             </TouchableOpacity>
