@@ -15,6 +15,7 @@ import { Box } from "@/components/box";
 import { ThemedText } from "@/components/themed-text";
 
 import { Ionicons } from "@expo/vector-icons";
+import Watermark from "@/components/watermark";
 
 export default function BookGameScreen() {
   const colorScheme = useColorScheme();
@@ -84,6 +85,8 @@ export default function BookGameScreen() {
         backgroundColor: isDark ? "#000" : "#f2f2f2",
       }}
     >
+              <Watermark/>
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack className="px-4 pt-6 pb-20">
 

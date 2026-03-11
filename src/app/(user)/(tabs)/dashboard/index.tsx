@@ -7,12 +7,14 @@ import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { Button } from '@react-navigation/elements';
 import { useRouter } from 'expo-router';
+import Watermark from '@/components/watermark';
 
 export default function DashboardScreen() {
   const routePage = useRouter();
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
+        <Watermark/>
         <ThemedText type="title">Dashboard</ThemedText>
         <ThemedText>Welcome to FreeSwing!</ThemedText>
         <Button

@@ -23,6 +23,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Svg, { Path } from "react-native-svg";
 import { Text } from "@/components/text";
 import { useRouter } from "expo-router";
+import Watermark from "@/components/watermark";
 
 export default function NewRoundScreen() {
   const colorScheme = useColorScheme();
@@ -56,6 +57,8 @@ export default function NewRoundScreen() {
       <SafeAreaView
         style={{ flex: 1, backgroundColor: isDark ? "#000" : "#fff" }}
       >
+                <Watermark/>
+
         <ScrollView showsVerticalScrollIndicator={false}>
           <VStack className="px-5 pt-6 pb-20">
             {/* Header */}
