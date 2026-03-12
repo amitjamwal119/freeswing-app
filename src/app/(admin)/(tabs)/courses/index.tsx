@@ -48,35 +48,33 @@ export default function adminTournamentPage() {
         }}
       >
         <Watermark />
+        {/* Header */}
+        <VStack className="mb-6">
+          <ThemedText
+            style={{
+              fontSize: 28,
+              fontWeight: "700",
+              textAlign: "center",
+              lineHeight: 27,
+            }}
+          >
+            Courses
+          </ThemedText>
 
+          <ThemedText
+            style={{
+              fontSize: 15,
+              opacity: 0.6,
+              marginTop: 9,
+              textAlign: "center",
+              lineHeight: 20,
+            }}
+          >
+            Manage and explore your golf courses.
+          </ThemedText>
+        </VStack>
         <ScrollView showsVerticalScrollIndicator={false}>
           <VStack className="px-4 pt-6 pb-20">
-            {/* Header */}
-            <VStack className="mb-6">
-              <ThemedText
-                style={{
-                  fontSize: 28,
-                  fontWeight: "700",
-                  textAlign: "center",
-                  lineHeight: 27,
-                }}
-              >
-                Courses
-              </ThemedText>
-
-              <ThemedText
-                style={{
-                  fontSize: 15,
-                  opacity: 0.6,
-                  marginTop: 9,
-                  textAlign: "center",
-                  lineHeight: 20,
-                }}
-              >
-                Manage and explore your golf courses.
-              </ThemedText>
-            </VStack>
-
             <VStack className="gap-4">
               {courses.map((course) => (
                 <CourseCardAdmin

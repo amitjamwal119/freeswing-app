@@ -22,22 +22,22 @@ export default function adminTournamentPage() {
       }}
     >
       <Watermark />
-
+      {/* Header */}
+      <VStack className="mb-6">
+        <ThemedText
+          style={{
+            fontSize: 28,
+            fontWeight: "700",
+            textAlign: "center",
+            lineHeight: 27,
+          }}
+        >
+          Tournaments
+        </ThemedText>
+      </VStack>
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack className="px-4 pt-6 pb-20">
-          {/* Header */}
-          <VStack className="mb-6">
-            <ThemedText
-              style={{
-                fontSize: 14,
-                opacity: 0.6,
-                marginTop: 8,
-                textAlign: "center",
-              }}
-            >
-              Tournament Page
-            </ThemedText>
-          </VStack>
+          
         </VStack>
       </ScrollView>
     </SafeAreaView>

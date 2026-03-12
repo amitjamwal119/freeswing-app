@@ -5,7 +5,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Box } from "@/components/box";
 import { VStack } from "@/components/vstack";
 import { Ionicons } from "@expo/vector-icons";
-import Svg, { Path } from "react-native-svg";
 
 import { ThemedText } from "@/components/themed-text";
 import Watermark from "@/components/watermark";
@@ -31,12 +30,78 @@ export default function teeBoxPage() {
   const [selectedColor, setSelectedColor] = useState<
     "red" | "blue" | "black" | "white" | "gold" | "green" | "silver" | null
   >(null);
-  const [scoringMode, setScoringMode] = useState("netInclude");
 
-  const courses = [
-    { id: 1, name: "ASC AEPTA", location: "Bangalore", tees: 2, free: true },
-    { id: 2, name: "Royal Greens", location: "Delhi", tees: 4, free: false },
-    { id: 3, name: "Palm Meadows", location: "Mumbai", tees: 3, free: true },
+  const tees = [
+    {
+      id: 1,
+      name: "Kala",
+      color: "Black",
+      rating: 50,
+      slope: 130,
+      location: "Bangalore",
+      tees: 2,
+      free: true,
+    },
+    {
+      id: 2,
+      name: "Neela",
+      color: "Blue",
+      rating: 55,
+      slope: 120,
+      location: "Delhi",
+      tees: 4,
+      free: false,
+    },
+    {
+      id: 3,
+      name: "Safed",
+      color: "White",
+      rating: 65,
+      slope: 105,
+      location: "Mumbai",
+      tees: 3,
+      free: true,
+    },
+    {
+      id: 4,
+      name: "Lal",
+      color: "Red",
+      rating: 72,
+      slope: 110,
+      location: "Mumbai",
+      tees: 3,
+      free: true,
+    },
+    {
+      id: 5,
+      name: "Hara",
+      color: "Green",
+      rating: 72,
+      slope: 110,
+      location: "Mumbai",
+      tees: 3,
+      free: true,
+    },
+    {
+      id: 6,
+      name: "Rajat",
+      color: "Silver",
+      rating: 72,
+      slope: 110,
+      location: "Mumbai",
+      tees: 3,
+      free: true,
+    },
+    {
+      id: 7,
+      name: "Sona",
+      color: "Gold",
+      rating: 72,
+      slope: 110,
+      location: "Mumbai",
+      tees: 3,
+      free: true,
+    },
   ];
 
   return (
@@ -52,10 +117,10 @@ export default function teeBoxPage() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <VStack className="px-4 pb-20 mt-3">
             <VStack className="gap-4">
-              {courses.map((course) => (
-                <CourseCardAdmin
-                  key={course.id}
-                  course={course}
+              {tees.map((tee) => (
+                <TeeCardAdmin
+                  key={tee.id}
+                  tee={tee}
                   isDark={isDark}
                   openModal={() => setModalVisible(true)}
                 />
@@ -218,7 +283,7 @@ export default function teeBoxPage() {
               )}
 
               <Text className="text-gray-500 mb-4">
-                *Premium courses are only available to subscribed members.
+                *Premium tees are only available to subscribed members.
               </Text>
             </ScrollView>
 
@@ -252,9 +317,18 @@ export default function teeBoxPage() {
   );
 }
 
-/* ---------- COURSE CARD ---------- */
+/* ---------- tee CARD ---------- */
 
-function CourseCardAdmin({ course, isDark, openModal }: any) {
+function TeeCardAdmin({ tee, isDark, openModal }: any) {
+  const teeColors: Record<string, string> = {
+    red: "#ef4444",
+    blue: "#3b82f6",
+    black: "#111827",
+    white: "#f3f4f6",
+    gold: "#d4af37",
+    green: "#16a34a",
+    silver: "#9ca3af",
+  };
   const routePage = useRouter();
 
   return (
@@ -265,52 +339,57 @@ function CourseCardAdmin({ course, isDark, openModal }: any) {
         borderColor: isDark ? "#262626" : "#e5e5e5",
       }}
     >
-      {/* Free Badge */}
-      {course.free && (
-        <Box
-          className="absolute top-3 right-3 px-3 py-1 rounded-full"
-          style={{
-            backgroundColor: isDark ? "#262626" : "#e5e5e5",
-          }}
-        >
-          <ThemedText style={{ fontSize: 12, fontWeight: "600" }}>
-            Free
-          </ThemedText>
-        </Box>
-      )}
+      {/* Color Badge */}
+      {/* Color Badge */}
+{tee.color && (() => {
+  const bgColor = teeColors[tee.color.toLowerCase()] || (isDark ? "#111" : "#fff");
 
-      {/* Flag */}
-      <HStack className="mb-3">
-        <Svg width={28} height={28} viewBox="0 0 448 512">
-          <Path
-            fill="#8bc34a"
-            d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32V480c0 17.7 14.3 32 32 32s32-14.3 32-32V358.4l62.7-18.8c41.9-12.6 87.1-8.7 126.2 10.9 42.7 21.4 92.5 24 137.2 7.2l37.1-13.9c12.5-4.7 20.8-16.6 20.8-30V65.1c0-23-24.2-38-44.8-27.7l-11.8 5.9c-44.9 22.5-97.8 22.5-142.8 0-36.4-18.2-78.3-21.8-117.2-10.1L64 54.4V32z"
-          />
-        </Svg>
-      </HStack>
+  const textColor =
+    tee.color.toLowerCase() === "white" ? "#000" : "#fff";
 
-      {/* Course Name */}
+  return (
+    <Box
+      className="absolute top-3 right-3 px-3 py-1 rounded-full"
+      style={{
+        borderWidth: 1,
+        borderColor: isDark ? "#262626" : "#e5e5e5",
+        backgroundColor: bgColor,
+      }}
+    >
+      <ThemedText
+        style={{
+          fontSize: 12,
+          fontWeight: "600",
+          color: textColor,
+        }}
+      >
+        {tee.color}
+      </ThemedText>
+    </Box>
+  );
+})()}
+
+    
+      {/* tee Name */}
       <ThemedText style={{ fontSize: 18, fontWeight: "700" }}>
-        {course.name}
+        {tee.color}
       </ThemedText>
 
       {/* Location */}
-      <HStack className="items-center mt-2">
-        <Ionicons name="location-outline" size={18} color="#ef4444" />
-        <ThemedText
-          style={{
-            marginLeft: 6,
-            fontSize: 14,
-            opacity: 0.7,
-          }}
-        >
-          {course.location}
-        </ThemedText>
+      <HStack className="items-center justify-between my-3">
+        <VStack>
+          <ThemedText>Rating</ThemedText>
+          <ThemedText>{tee.rating}</ThemedText>
+        </VStack>
+        <VStack>
+          <ThemedText>Slope</ThemedText>
+          <ThemedText>{tee.slope}</ThemedText>
+        </VStack>
       </HStack>
 
-      {/* Manage Tees */}
+      {/*setup holes button */}
       <Pressable
-        onPress={() => routePage.replace("/(admin)/(tabs)/courses/teeBox")}
+        onPress={() => routePage.push("/courses/holes")}
         className="mt-3 rounded-xl py-2 items-center border border-[#8bc34a] flex-row justify-center gap-2"
         style={({ pressed }) => ({
           backgroundColor: pressed ? "#8bc34a" : "transparent",
@@ -329,7 +408,7 @@ function CourseCardAdmin({ course, isDark, openModal }: any) {
                 fontWeight: "600",
               }}
             >
-              Manage Tees
+              Setup Holes
             </ThemedText>
           </>
         )}
