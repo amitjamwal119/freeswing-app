@@ -1,7 +1,7 @@
-import { Image } from "expo-image";
+// import { Image } from "expo-image";
 import { version } from "expo/package.json";
 import React from "react";
-import { StyleSheet, useColorScheme } from "react-native";
+import { Image, StyleSheet, useColorScheme } from "react-native";
 
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
