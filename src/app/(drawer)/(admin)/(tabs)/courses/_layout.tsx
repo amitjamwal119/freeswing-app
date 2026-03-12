@@ -1,13 +1,19 @@
 import { Stack } from "expo-router";
 
-export default function NewRoundLayout() {
+export default function coursesLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen
-        name="scoreCard"
+        name="teeBox"
         options={{
-          title: "Score Card",
+          title: "Tee Boxes",
+        }}
+      />
+      <Stack.Screen
+        name="holes"
+        options={{
+          title: "Edit Holes",
         }}
       />
     </Stack>
