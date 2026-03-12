@@ -1,24 +1,75 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
-import { useColorScheme } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  useColorScheme,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Colors } from "@/constants/theme";
 
-export default function TabLayout() {
+export default function AdminTabLayout() {
   const scheme = useColorScheme();
   const theme = scheme === "dark" ? "dark" : "light";
   const colors = Colors[theme];
 
+  const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
+
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerTitle: "",
+
+        // LOGO LEFT
+        headerLeftContainerStyle: { paddingLeft: 0, marginLeft: -10 },
+        headerLeft: () => (
+          <Image
+            source={require("@/assets/FreeSwing.png")}
+            style={{
+              width: 150,
+              height: 80,
+              marginLeft: -20,
+              resizeMode: "contain",
+            }}
+          />
+        ),
+
+        // PROFILE RIGHT (OPENS DRAWER)
+        headerRight: () => (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.getParent()?.dispatch(DrawerActions.openDrawer())
+            }
+            style={{
+              marginRight: 30,
+              borderRadius: 20,
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              source={{ uri: "https://i.pravatar.cc/100" }}
+              style={{
+                width: 42,
+                height: 42,
+                borderRadius: 21,
+              }}
+            />
+          </TouchableOpacity>
+        ),
+
         tabBarActiveTintColor: "#8bc34a",
         tabBarInactiveTintColor: "#9E9E9E",
+
         tabBarStyle: {
           backgroundColor: "#ffffff",
-          height: 73,
+          height: 60 + insets.bottom,
+          paddingBottom: insets.bottom,
         },
       }}
     >
@@ -37,11 +88,11 @@ export default function TabLayout() {
         }}
       />
 
-      {/* All Members */}
+      {/* MEMBERS */}
       <Tabs.Screen
         name="allMembers/index"
         options={{
-          title: "All Members",
+          title: "Members",
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "people" : "people-outline"}
@@ -52,9 +103,9 @@ export default function TabLayout() {
         }}
       />
 
-      {/* Courses */}
+      {/* COURSES */}
       <Tabs.Screen
-        name="courses"
+        name="courses/index"
         options={{
           title: "Courses",
           tabBarIcon: ({ color, size, focused }) => (
@@ -67,22 +118,7 @@ export default function TabLayout() {
         }}
       />
 
-      {/* Handicap Setup */}
-      <Tabs.Screen
-        name="handicapSetup/index"
-        options={{
-          title: "Handicap Setup",
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons
-              name={focused ? "clipboard" : "clipboard-outline"}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      {/* Tournaments */}
+      {/* TOURNAMENTS */}
       <Tabs.Screen
         name="tournaments/index"
         options={{
@@ -97,22 +133,7 @@ export default function TabLayout() {
         }}
       />
 
-      {/* Sub Admins */}
-      <Tabs.Screen
-        name="subAdmins/index"
-        options={{
-          title: "Sub-Admins",
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons
-              name={focused ? "person-circle" : "person-circle-outline"}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      {/* PRO SHOP */}
+      {/* SHOP */}
       <Tabs.Screen
         name="proShop/index"
         options={{

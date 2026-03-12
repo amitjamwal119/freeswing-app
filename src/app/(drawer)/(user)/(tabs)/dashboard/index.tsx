@@ -18,7 +18,7 @@ export default function DashboardScreen() {
         <ThemedText>Welcome to FreeSwing!</ThemedText>
 
         {/* Profile Page Button */}
-        <Button onPress={() => router.push("/(profile)/userProfile")}>
+        <Button onPress={() => router.push("/(drawer)/(profile)/userProfile")}>
           Profile Page
         </Button>
 
