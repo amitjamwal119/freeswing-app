@@ -10,7 +10,7 @@ import Watermark from "@/components/watermark";
 //               onPress={() => routePage.push("/newRound/scoreCard")}
 //     const routePage = useRouter();
 
-export default function scoreCardPage() {
+export default function adminTournamentPage() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
 
@@ -21,25 +21,23 @@ export default function scoreCardPage() {
         backgroundColor: isDark ? "#000" : "#f2f2f2",
       }}
     >
-            <Watermark />
-      
+      <Watermark />
+      {/* Header */}
+      <VStack className="mb-6">
+        <ThemedText
+          style={{
+            fontSize: 28,
+            fontWeight: "700",
+            textAlign: "center",
+            lineHeight: 27,
+          }}
+        >
+          Tournaments
+        </ThemedText>
+      </VStack>
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack className="px-4 pt-6 pb-20">
-          {/* Header */}
-          <VStack className="mb-6">
-           
-
-            <ThemedText
-              style={{
-                fontSize: 14,
-                opacity: 0.6,
-                marginTop: 8,
-                textAlign: "center",
-              }}
-            >
-              (Net Score Include Par 3)
-            </ThemedText>
-          </VStack>
+          
         </VStack>
       </ScrollView>
     </SafeAreaView>
