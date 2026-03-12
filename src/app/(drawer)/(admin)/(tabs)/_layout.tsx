@@ -84,7 +84,7 @@ export default function TabLayout() {
 
       {/* Tournaments */}
       <Tabs.Screen
-        name="tournaments/index"
+        name="tournaments"
         options={{
           title: "Tournaments",
           tabBarIcon: ({ color, size, focused }) => (
