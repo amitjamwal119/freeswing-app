@@ -5,10 +5,11 @@ import { Button, ButtonText } from "@/components/button";
 import { Divider } from "@/components/divider";
 import { HStack } from "@/components/hstack";
 import { Text } from "@/components/text";
+import { ThemedText } from "@/components/themed-text";
 import { VStack } from "@/components/vstack";
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable } from "react-native";
-
+import { Pressable, useColorScheme } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 export type Scorecard = {
     id: string;
     playerName: string;
@@ -34,180 +35,201 @@ type OverviewTabProps = {
 };
 
 export function OverviewTab({ cards, handleLike }: OverviewTabProps) {
+    const colorScheme = useColorScheme();
+    const isDark = colorScheme === "dark";
+
     return (
-        <VStack space="md">
-            {/* Header */}
-            <HStack className="justify-between items-center">
-                <HStack space="sm" className="items-center">
-                    <Text className="text-xl font-bold text-typography-900">
-                        Game Feed
-                    </Text>
-                    <HStack space="xs" className="items-center">
-                        <Box className="w-2 h-2 rounded-full bg-success-500" />
-                        <Text className="text-xs text-success-600 font-semibold">
-                            Live
-                        </Text>
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: isDark ? "#000" : "#f2f2f2",
+            }}
+        >
+
+            <VStack space="md">
+                {/* Header */}
+                <HStack className="justify-between items-center">
+                    <HStack space="sm" className="items-center">
+                        <ThemedText className="text-xl font-bold text-typography-900">
+                            Game Feed
+                        </ThemedText>
+                        <HStack space="xs" className="items-center">
+                            <Box className="w-2 h-2 rounded-full bg-success-500" />
+                            <ThemedText className="text-xs text-success-600 font-semibold">
+                                Live
+                            </ThemedText>
+                        </HStack>
                     </HStack>
                 </HStack>
-            </HStack>
 
-            {/* Empty state */}
-            {cards.length === 0 && (
-                <Box className="bg-background-0 rounded-2xl border border-outline-200 py-12 items-center">
-                    <Text className="text-4xl">⛳</Text>
-                    <Text className="text-typography-400 font-semibold text-sm mt-3">
-                        No scorecards yet
-                    </Text>
-                </Box>
-            )}
+                {/* Empty state */}
+                {cards.length === 0 && (
+                    <Box className="bg-background-0 rounded-2xl border border-outline-200 py-12 items-center">
+                        <Text className="text-4xl">⛳</Text>
+                        <ThemedText className="text-typography-400 font-semibold text-sm mt-3">
+                            No scorecards yet
+                        </ThemedText>
+                    </Box>
+                )}
 
-            {/* Cards */}
-            {cards.map((card) => (
-                <Box
-                    key={card.id}
-                    className="bg-background-0 rounded-2xl border border-outline-200 overflow-hidden"
-                >
-                    {/* Header row */}
-                    <HStack className="px-4 pt-4 pb-3 justify-between items-start">
-                        <HStack space="sm" className="items-center flex-1">
-                            <Avatar size="md" className="bg-outline-400">
-                                <AvatarFallbackText>
-                                    {card.playerName.charAt(0).toUpperCase()}
-                                </AvatarFallbackText>
-                            </Avatar>
-                            <VStack>
-                                <Text className="text-typography-900 font-semibold text-sm">
-                                    {card.playerName}
-                                </Text>
-                                <HStack space="xs" className="items-center flex-wrap mt-0.5">
-                                    <Ionicons name="calendar-outline" size={11} color="#9ca3af" />
-                                    <Text className="text-typography-400 text-xs">
-                                        {card.date}
-                                    </Text>
-                                    <Text className="text-outline-200 text-xs">•</Text>
-                                    <Ionicons name="flag-outline" size={11} color="#9ca3af" />
-                                    <Text className="text-typography-400 text-xs">
-                                        {card.course}
-                                    </Text>
-                                    <Box className="bg-info-100 rounded px-1.5 py-0.5">
-                                        <Text className="text-info-700 text-[10px] font-bold">
-                                            {card.tee}
-                                        </Text>
-                                    </Box>
-                                </HStack>
-                            </VStack>
-                        </HStack>
+                {/* Cards */}
+                {cards.map((card) => (
+                    <Box
+                        key={card.id}
+                        className="bg-white rounded-3xl border border-gray-100 overflow-hidden mb-4 shadow-sm"
+                        style={{
+                            shadowColor: "#000",
+                            shadowOffset: { width: 0, height: 2 },
+                            shadowOpacity: 0.05,
+                            shadowRadius: 10,
+                            elevation: 2,
 
-                        <HStack space="xs" className="items-center">
-                            {card.isTournament && (
+                            backgroundColor: isDark ? "#111" : "#fff",
+                        }}
+                    >
+                        {/* Header row */}
+                        <HStack className="px-4 pt-4 pb-3 justify-between items-start">
+                            <HStack space="sm" className="items-center flex-1">
+                                <Avatar size="md" className="bg-outline-400">
+                                    <AvatarFallbackText>
+                                        {card.playerName.charAt(0).toUpperCase()}
+                                    </AvatarFallbackText>
+                                </Avatar>
+                                <VStack>
+                                    <ThemedText className="text-typography-900 font-semibold text-sm">
+                                        {card.playerName}
+                                    </ThemedText>
+                                    <HStack space="xs" className="items-center flex-wrap mt-0.5">
+                                        <Ionicons name="calendar-outline" size={11} color="#9ca3af" />
+                                        <ThemedText className="text-typography-400 text-xs">
+                                            {card.date}
+                                        </ThemedText>
+                                        <ThemedText className="text-outline-200 text-xs">•</ThemedText>
+                                        <Ionicons name="flag-outline" size={11} color="#9ca3af" />
+                                        <ThemedText className="text-typography-400 text-xs">
+                                            {card.course}
+                                        </ThemedText>
+                                        <Box className="bg-info-100 rounded px-1.5 py-0.5">
+                                            <ThemedText className="text-info-700 text-[10px] font-bold">
+                                                {card.tee}
+                                            </ThemedText>
+                                        </Box>
+                                    </HStack>
+                                </VStack>
+                            </HStack>
+
+                            <HStack space="xs" className="items-center">
+                                {card.isTournament && (
+                                    <Badge
+                                        size="sm"
+                                        className="bg-warning-400 rounded-full px-3 py-1"
+                                    >
+                                        <BadgeText className="text-white font-bold text-xs">
+                                            Tournament
+                                        </BadgeText>
+                                    </Badge>
+                                )}
                                 <Badge
                                     size="sm"
-                                    className="bg-warning-400 rounded-full px-3 py-1"
+                                    className="bg-typography-800 rounded-full px-3 py-1"
                                 >
-                                    <BadgeText className="text-white font-bold text-xs">
-                                        Tournament
+                                    <BadgeText className="text-white font-semibold text-xs">
+                                        {card.holes} Holes
                                     </BadgeText>
                                 </Badge>
-                            )}
-                            <Badge
-                                size="sm"
-                                className="bg-typography-800 rounded-full px-3 py-1"
-                            >
-                                <BadgeText className="text-white font-semibold text-xs">
-                                    {card.holes} Holes
-                                </BadgeText>
-                            </Badge>
+                            </HStack>
                         </HStack>
-                    </HStack>
 
-                    {/* Gross Score block */}
-                    <Box className="mx-4 mb-3 bg-background-50 rounded-2xl py-6 items-center">
-                        <Text className="text-5xl font-black text-typography-900">
-                            {card.grossScore}
-                        </Text>
-                        <Text
-                            style={{ color: diffColor(card.grossDiff) }}
-                            className="text-lg font-bold mt-1"
-                        >
-                            {diffLabel(card.grossDiff)}
-                        </Text>
-                        <Text className="text-[10px] uppercase tracking-widest text-typography-400 mt-1">
-                            Gross Score
-                        </Text>
-                    </Box>
-
-                    {/* NET / POINTS / PAR */}
-                    <HStack space="sm" className="mx-4 mb-3">
-                        {[
-                            { label: "NET", value: card.net, green: true },
-                            { label: "POINTS", value: card.points, green: true },
-                            { label: "PAR", value: card.par, green: false },
-                        ].map((s) => (
-                            <Box
-                                key={s.label}
-                                className="flex-1 bg-background-0 rounded-xl border border-outline-200 items-center py-3"
-                            >
-                                <Text className="text-[10px] text-typography-400 uppercase tracking-widest mb-1">
-                                    {s.label}
-                                </Text>
-                                <Text
-                                    className={`text-base font-bold ${s.green ? "text-success-500" : "text-typography-800"
-                                        }`}
+                        {/* Gross Score block */}
+                        <Box className="mx-4 mb-4 bg-gray-50 rounded-2xl py-8 items-center border border-gray-100">
+                            <ThemedText className="text-6xl font-black text-gray-900 tracking-tighter">
+                                {card.grossScore}
+                            </ThemedText>
+                            <HStack space="xs" className="items-center mt-1">
+                                <ThemedText
+                                    style={{ color: diffColor(card.grossDiff) }}
+                                    className="text-xl font-bold"
                                 >
-                                    {s.value}
-                                </Text>
-                            </Box>
-                        ))}
-                    </HStack>
+                                    {diffLabel(card.grossDiff)}
+                                </ThemedText>
+                                <ThemedText className="text-[10px] uppercase font-bold text-gray-400 tracking-widest ml-1">
+                                    Gross
+                                </ThemedText>
+                            </HStack>
+                        </Box>
 
-                    <Divider className="bg-outline-100" />
-
-                    {/* Footer */}
-                    <HStack className="px-4 py-3 justify-between items-center">
-                        <HStack space="md" className="items-center">
-                            <Pressable
-                                onPress={() => handleLike(card.id)}
-                                className="flex-row items-center"
-                            >
-                                <Ionicons name="heart-outline" size={18} color="#9ca3af" />
-                                <Text className="text-typography-400 text-xs ml-1">
-                                    {card.likes}
-                                </Text>
-                            </Pressable>
-                            <Pressable>
-                                <Ionicons name="people-outline" size={18} color="#9ca3af" />
-                            </Pressable>
+                        {/* NET / POINTS / PAR */}
+                        <HStack space="sm" className="mx-4 mb-3">
+                            {[
+                                { label: "NET", value: card.net, green: true },
+                                { label: "POINTS", value: card.points, green: true },
+                                { label: "PAR", value: card.par, green: false },
+                            ].map((s) => (
+                                <Box
+                                    key={s.label}
+                                    className="flex-1 bg-background-0 rounded-xl border border-outline-200 items-center py-3"
+                                >
+                                    <ThemedText className="text-[10px] text-typography-400 uppercase tracking-widest mb-1">
+                                        {s.label}
+                                    </ThemedText>
+                                    <ThemedText
+                                        className={`text-base font-bold ${s.green ? "text-success-500" : "text-typography-800"
+                                            }`}
+                                    >
+                                        {s.value}
+                                    </ThemedText>
+                                </Box>
+                            ))}
                         </HStack>
 
-                        <HStack space="sm" className="items-center">
-                            <Button
-                                size="sm"
-                                variant="outline"
-                                className="rounded-full border-info-300 bg-info-50 gap-1"
-                            >
-                                <Ionicons name="eye-outline" size={13} color="#0284c7" />
-                                <ButtonText className="text-info-600 text-xs font-semibold">
-                                    View
-                                </ButtonText>
-                            </Button>
-                            <Button
-                                size="sm"
-                                variant="outline"
-                                className="rounded-full border-outline-200 bg-background-50 gap-1"
-                            >
-                                <Ionicons
-                                    name="shield-checkmark-outline"
-                                    size={13}
-                                    color="#6b7280"
-                                />
-                                <ButtonText className="text-typography-500 text-xs font-semibold">
-                                    Auth
-                                </ButtonText>
-                            </Button>
+                        <Divider className="bg-outline-100" />
+
+                        {/* Footer */}
+                        <HStack className="px-4 py-4 justify-between items-center bg-gray-50/50">
+                            <HStack space="lg" className="items-center">
+                                <Pressable
+                                    onPress={() => handleLike(card.id)}
+                                    className="flex-row items-center"
+                                >
+                                    <Ionicons name="heart-outline" size={20} color="#6b7280" />
+                                    <ThemedText className="text-gray-500 text-sm font-semibold ml-1.5">
+                                        {card.likes}
+                                    </ThemedText>
+                                </Pressable>
+                                <Pressable className="bg-gray-200/50 p-2 rounded-full">
+                                    <Ionicons name="share-social-outline" size={18} color="#6b7280" />
+                                </Pressable>
+                            </HStack>
+
+                            <HStack space="md" className="items-center">
+                                <Button
+                                    size="sm"
+                                    className="rounded-full bg-[#8BC34A] px-6 h-10 shadow-sm"
+                                >
+                                    <Ionicons name="eye-outline" size={14} color="white" />
+                                    <ButtonText className="text-white text-xs font-bold ml-1.5">
+                                        View
+                                    </ButtonText>
+                                </Button>
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="rounded-full border-outline-200 bg-background-50 gap-1"
+                                >
+                                    <Ionicons
+                                        name="shield-checkmark-outline"
+                                        size={13}
+                                        color="#6b7280"
+                                    />
+                                    <ButtonText className="text-typography-500 text-xs font-semibold">
+                                        Auth
+                                    </ButtonText>
+                                </Button>
+                            </HStack>
                         </HStack>
-                    </HStack>
-                </Box>
-            ))}
-        </VStack>
+                    </Box>
+                ))}
+            </VStack>
+        </SafeAreaView>
     );
 }
