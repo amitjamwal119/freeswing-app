@@ -1,52 +1,146 @@
 import { Drawer } from "expo-router/drawer";
 import { Ionicons } from "@expo/vector-icons";
-import { View, TouchableOpacity, Text, Image, StyleSheet, useColorScheme } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Image,
+  StyleSheet,
+  useColorScheme,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function CustomDrawerContent() {
   const scheme = useColorScheme();
   const isDark = scheme === "dark";
 
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadRole = async () => {
+      const storedRole = await AsyncStorage.getItem("role");
+      setRole(storedRole);
+    };
+
+    loadRole();
+  }, []);
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: isDark ? "#121212" : "#e8f5e9" }]}>
-      {/* Top Profile Section */}
+    <SafeAreaView
+      style={[
+        styles.container,
+        { backgroundColor: isDark ? "#121212" : "#e8f5e9" },
+      ]}
+    >
+      {/* Profile Section */}
       <View style={styles.topSection}>
         <View style={styles.avatarWrapper}>
-          <Image source={{ uri: "https://i.pravatar.cc/100" }} style={styles.avatar} />
+          <Image
+            source={{ uri: "https://i.pravatar.cc/100" }}
+            style={styles.avatar}
+          />
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>Pro</Text>
+            <Text style={styles.badgeText}>{role === "admin" ? "Admin" : "User"}</Text>
           </View>
         </View>
 
         <Text style={styles.userName}>John Doe</Text>
-        <Text style={styles.handicap}>Handicap: 5</Text>
+        <Text style={styles.handicap}>
+          {role === "admin" ? "Administrator" : "Handicap: 5"}
+        </Text>
       </View>
 
-      {/* Drawer Items */}
+      {/* Drawer Menu */}
       <View style={styles.drawerItems}>
+        {/* ADMIN PROFILE */}
         <TouchableOpacity
-          onPress={() => router.replace("/(drawer)/(profile)/userProfile")}
+          onPress={() => router.push("/(drawer)/(profile)/adminProfile")}
+          style={styles.drawerItem}
+        >
+          <Ionicons name="shield-outline" size={26} color="#2e7d32" />
+          <Text style={styles.drawerText}>Admin Profile</Text>
+        </TouchableOpacity>
+
+        {/* USER PROFILE */}
+        <TouchableOpacity
+          onPress={() => router.push("/(drawer)/(profile)/userProfile")}
           style={styles.drawerItem}
         >
           <Ionicons name="person-circle-outline" size={26} color="#2e7d32" />
-          <Text style={styles.drawerText}>Profile</Text>
+          <Text style={styles.drawerText}>User Profile</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.drawerItem}>
-          <Ionicons name="analytics-outline" size={26} color="#2e7d32" />
-          <Text style={styles.drawerText}>Stats</Text>
-        </TouchableOpacity>
+        {/* ADMIN MENU */}
+        {role === "admin" && (
+          <>
+            <TouchableOpacity
+              onPress={() => router.replace("/(drawer)/(admin)/(tabs)/dashboard")}
+              style={styles.drawerItem}
+            >
+              <Ionicons name="speedometer-outline" size={26} color="#2e7d32" />
+              <Text style={styles.drawerText}>Dashboard</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.drawerItem}>
-          <Ionicons name="settings-outline" size={26} color="#2e7d32" />
-          <Text style={styles.drawerText}>Settings</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => router.replace("/(drawer)/(admin)/(tabs)/allMembers")}
+              style={styles.drawerItem}
+            >
+              <Ionicons name="people-outline" size={26} color="#2e7d32" />
+              <Text style={styles.drawerText}>Members</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              // onPress={() => router.replace("/(drawer)/(admin)/settings")}
+              style={styles.drawerItem}
+            >
+              <Ionicons name="settings-outline" size={26} color="#2e7d32" />
+              <Text style={styles.drawerText}>Admin Settings</Text>
+            </TouchableOpacity>
+          </>
+        )}
+
+        {/* USER MENU */}
+        {role === "user" && (
+          <>
+            <TouchableOpacity
+              onPress={() => router.replace("/(drawer)/(user)/(tabs)/dashboard")}
+              style={styles.drawerItem}
+            >
+              <Ionicons name="home-outline" size={26} color="#2e7d32" />
+              <Text style={styles.drawerText}>Dashboard</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              // onPress={() => router.replace("/(drawer)/(user)/bookings")}
+              style={styles.drawerItem}
+            >
+              <Ionicons name="calendar-outline" size={26} color="#2e7d32" />
+              <Text style={styles.drawerText}>Bookings</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              // onPress={() => router.replace("/(drawer)/(user)/stats")}
+              style={styles.drawerItem}
+            >
+              <Ionicons name="analytics-outline" size={26} color="#2e7d32" />
+              <Text style={styles.drawerText}>Stats</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
 
-      {/* Bottom Logout */}
+      {/* Logout */}
       <View style={styles.logoutContainer}>
-        <TouchableOpacity onPress={() => router.replace("/login")} style={styles.logoutButton}>
+        <TouchableOpacity
+          onPress={async () => {
+            await AsyncStorage.removeItem("role");
+            router.replace("/(auth)/login");
+          }}
+          style={styles.logoutButton}
+        >
           <Ionicons name="log-out-outline" size={22} color="#fff" />
           <Text style={[styles.drawerText, { color: "#fff" }]}>Logout</Text>
         </TouchableOpacity>
