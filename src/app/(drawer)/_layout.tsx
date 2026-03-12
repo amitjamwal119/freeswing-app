@@ -1,20 +1,19 @@
 import { Drawer } from "expo-router/drawer";
 import { Ionicons } from "@expo/vector-icons";
-import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, Image, StyleSheet, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 
 function CustomDrawerContent() {
+  const scheme = useColorScheme();
+  const isDark = scheme === "dark";
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: isDark ? "#121212" : "#e8f5e9" }]}>
       {/* Top Profile Section */}
       <View style={styles.topSection}>
-        {/* Golf Ball Avatar */}
         <View style={styles.avatarWrapper}>
-          <Image
-            source={{ uri: "https://i.pravatar.cc/100" }}
-            style={styles.avatar}
-          />
+          <Image source={{ uri: "https://i.pravatar.cc/100" }} style={styles.avatar} />
           <View style={styles.badge}>
             <Text style={styles.badgeText}>Pro</Text>
           </View>
@@ -34,18 +33,12 @@ function CustomDrawerContent() {
           <Text style={styles.drawerText}>Profile</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          //   onPress={() => router.replace("/(stats)/userStats")}
-          style={styles.drawerItem}
-        >
+        <TouchableOpacity style={styles.drawerItem}>
           <Ionicons name="analytics-outline" size={26} color="#2e7d32" />
           <Text style={styles.drawerText}>Stats</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          //   onPress={() => router.replace("/(settings)/userSettings")}
-          style={styles.drawerItem}
-        >
+        <TouchableOpacity style={styles.drawerItem}>
           <Ionicons name="settings-outline" size={26} color="#2e7d32" />
           <Text style={styles.drawerText}>Settings</Text>
         </TouchableOpacity>
@@ -53,10 +46,7 @@ function CustomDrawerContent() {
 
       {/* Bottom Logout */}
       <View style={styles.logoutContainer}>
-        <TouchableOpacity
-          onPress={() => router.replace("/login")}
-          style={styles.logoutButton}
-        >
+        <TouchableOpacity onPress={() => router.replace("/login")} style={styles.logoutButton}>
           <Ionicons name="log-out-outline" size={22} color="#fff" />
           <Text style={[styles.drawerText, { color: "#fff" }]}>Logout</Text>
         </TouchableOpacity>
@@ -66,6 +56,9 @@ function CustomDrawerContent() {
 }
 
 export default function DrawerLayout() {
+  const scheme = useColorScheme();
+  const isDark = scheme === "dark";
+
   return (
     <Drawer
       drawerContent={() => <CustomDrawerContent />}
@@ -74,7 +67,7 @@ export default function DrawerLayout() {
         drawerPosition: "right",
         drawerStyle: {
           width: 300,
-          backgroundColor: "#e8f5e9",
+          backgroundColor: isDark ? "#121212" : "#e8f5e9",
         },
       }}
     >
@@ -154,7 +147,6 @@ const styles = StyleSheet.create({
   },
   logoutContainer: {
     marginBottom: 20,
-    // paddingHorizontal: 16,
   },
   logoutButton: {
     flexDirection: "row",
