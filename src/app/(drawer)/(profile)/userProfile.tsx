@@ -11,6 +11,7 @@ import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Divider } from "@/components/divider";
 import { VStack } from "@/components/vstack";
+import Watermark from "@/components/watermark";
 
 export default function UserProfile() {
   const colorScheme = useColorScheme();
@@ -19,6 +20,7 @@ export default function UserProfile() {
 
   return (
     <ThemedView className="flex-1 pt-16 px-5">
+      <Watermark/>
       <ScrollView showsVerticalScrollIndicator={false}>
 
         {/* ================= HEADER ================= */}

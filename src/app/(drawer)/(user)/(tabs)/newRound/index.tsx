@@ -23,13 +23,14 @@ import { Ionicons } from "@expo/vector-icons";
 import Svg, { Path } from "react-native-svg";
 import { Text } from "@/components/text";
 import { useRouter } from "expo-router";
+import Watermark from "@/components/watermark";
 
 export default function NewRoundScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
 
-    const routePage = useRouter();
-  
+  const routePage = useRouter();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -56,6 +57,8 @@ export default function NewRoundScreen() {
       <SafeAreaView
         style={{ flex: 1, backgroundColor: isDark ? "#000" : "#fff" }}
       >
+        <Watermark />
+
         <ScrollView showsVerticalScrollIndicator={false}>
           <VStack className="px-5 pt-6 pb-20">
             {/* Header */}
@@ -318,9 +321,10 @@ export default function NewRoundScreen() {
                 </ThemedText>
               </Pressable>
 
-              <Pressable 
-              onPress={() => routePage.push("/newRound/scoreCard")}
-              style={styles.startButton}>
+              <Pressable
+                onPress={() => routePage.push("/newRound/scoreCard")}
+                style={styles.startButton}
+              >
                 <ThemedText style={{ color: "white", fontWeight: "600" }}>
                   Start Game
                 </ThemedText>
@@ -340,7 +344,7 @@ function GolfCourseCard({ course, isDark, openModal }: any) {
     <Box
       className="rounded-2xl p-5 relative"
       style={{
-        backgroundColor: isDark ? "#111" : "#fff",
+        // backgroundColor: isDark ? "#111" : "#fff",
         borderWidth: 1,
         borderColor: isDark ? "#262626" : "#e5e5e5",
       }}

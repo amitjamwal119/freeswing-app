@@ -7,12 +7,16 @@ import { VStack } from "@/components/vstack";
 
 import { ThemedText } from "@/components/themed-text";
 import Watermark from "@/components/watermark";
+import { useRouter } from "expo-router";
+import { Button } from "@react-navigation/elements";
 //               onPress={() => routePage.push("/newRound/scoreCard")}
 //     const routePage = useRouter();
 
-export default function scoreCardPage() {
+export default function adminDashboard() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
+
+  const routePage = useRouter();
 
   return (
     <SafeAreaView
@@ -21,14 +25,12 @@ export default function scoreCardPage() {
         backgroundColor: isDark ? "#000" : "#f2f2f2",
       }}
     >
-            <Watermark />
-      
+      <Watermark />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack className="px-4 pt-6 pb-20">
           {/* Header */}
           <VStack className="mb-6">
-           
-
             <ThemedText
               style={{
                 fontSize: 14,
@@ -37,8 +39,11 @@ export default function scoreCardPage() {
                 textAlign: "center",
               }}
             >
-              (Net Score Include Par 3)
+              Dashboard Page
             </ThemedText>
+            <Button onPress={() => routePage.push("/(profile)/adminProfile")}>
+              Profile Page
+            </Button>
           </VStack>
         </VStack>
       </ScrollView>

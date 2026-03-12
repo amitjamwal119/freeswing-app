@@ -15,6 +15,7 @@ import { Box } from "@/components/box";
 import { ThemedText } from "@/components/themed-text";
 
 import { Ionicons } from "@expo/vector-icons";
+import Watermark from "@/components/watermark";
 
 export default function BookGameScreen() {
   const colorScheme = useColorScheme();
@@ -24,55 +25,55 @@ export default function BookGameScreen() {
     {
       name: "ICICI Bank",
       website: "www.golftripz.com",
-      img: require("/assets/images/bankImages/ICICI_Bank_Logo.svg.png"),
+      img: require("../../../../../../assets/images/bankImages/ICICI_Bank_Logo.svg.png"),
       url: "https://teetimes.golftripz.com/",
     },
     {
       name: "SBI",
       website: "www.thriwe.com",
-      img: require("/assets/images/bankImages/sbi-img.png"),
+      img: require("../../../../../../assets/images/bankImages/sbi-img.png"),
       url: "https://teepassindia.thriwe.com/",
     },
     {
       name: "IndusInd Bank",
       website: "www.apexlynx.net",
-      img: require("/assets/images/bankImages/IndusInd-Bank.jpg"),
+      img: require("../../../../../../assets/images/bankImages/IndusInd-Bank.jpg"),
       url: "https://indusindgolf.apexlynx.net/",
     },
     {
       name: "HSBC",
       website: "www.thriwe.com",
-      img: require("/assets/images/bankImages/HSBC_logo_(2018).svg.png"),
+      img: require("../../../../../../assets/images/bankImages/HSBC_logo_(2018).svg.png"),
       url: "https://golfpass.thriwe.com/login",
     },
     {
       name: "HDFC Bank",
       website: "www.hdfcbank.com",
-      img: require("/assets/images/bankImages/hdfc-img.jpg"),
+      img: require("../../../../../../assets/images/bankImages/hdfc-img.jpg"),
       url: "https://www.hdfc.bank.in/",
     },
     {
       name: "American Express",
       website: "www.americanexpress.com",
-      img: require("/assets/images/bankImages/American-Express.png"),
+      img: require("../../../../../../assets/images/bankImages/American-Express.png"),
       url: "https://www.americanexpress.com/en-in/",
     },
     {
       name: "Axis Bank",
       website: "www.extraordinaryweekends.com",
-      img: require("/assets/images/bankImages/axis-bank.png"),
+      img: require("../../../../../../assets/images/bankImages/axis-bank.png"),
       url: "https://www.extraordinaryweekends.com/",
     },
     {
       name: "Standard Chartered",
       website: "www.scb.golflan.com",
-      img: require("/assets/images/bankImages/standard-chartered-bank.png"),
+      img: require("../../../../../../assets/images/bankImages/standard-chartered-bank.png"),
       url: "https://scb.golflan.com/",
     },
     {
       name: "IDFC First Bank",
       website: "www.idfcfirst.truztee.com",
-      img: require("/assets/images/bankImages/idfc-first-bank-logo.png"),
+      img: require("../../../../../../assets/images/bankImages/idfc-first-bank-logo.png"),
       url: "https://idfcfirst.truztee.com/Account/Login",
     },
   ];
@@ -84,9 +85,10 @@ export default function BookGameScreen() {
         backgroundColor: isDark ? "#000" : "#f2f2f2",
       }}
     >
+      <Watermark />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack className="px-4 pt-6 pb-20">
-
           {/* Header */}
           <VStack className="mb-6">
             <ThemedText
@@ -113,23 +115,20 @@ export default function BookGameScreen() {
 
           {/* Bank List */}
           <VStack className="gap-3">
-
             {bankDetails.map((bank, index) => (
-              <Pressable
-                key={index}
-                onPress={() => Linking.openURL(bank.url)}
-              >
+              <Pressable key={index} onPress={() => Linking.openURL(bank.url)}>
                 <Box
                   style={{
                     ...styles.bankRow,
-                    backgroundColor: isDark ? "#111" : "#fff",
+                    // backgroundColor: isDark ? "#111" : "#fff",
+                    borderColor: "#8bc34a",
+                    borderWidth: 1,
+                    borderRadius: 9,
                   }}
                 >
                   <HStack className="items-center justify-between">
-
                     {/* Left Section */}
                     <HStack className="items-center flex gap-5">
-
                       <Image
                         source={bank.img}
                         style={styles.logo}
@@ -156,7 +155,6 @@ export default function BookGameScreen() {
                           {bank.website}
                         </ThemedText>
                       </VStack>
-
                     </HStack>
 
                     {/* Chevron */}
@@ -165,14 +163,11 @@ export default function BookGameScreen() {
                       size={20}
                       color={isDark ? "#aaa" : "#777"}
                     />
-
                   </HStack>
                 </Box>
               </Pressable>
             ))}
-
           </VStack>
-
         </VStack>
       </ScrollView>
     </SafeAreaView>
@@ -180,7 +175,6 @@ export default function BookGameScreen() {
 }
 
 const styles = StyleSheet.create({
-
   bankRow: {
     padding: 14,
     borderRadius: 12,
@@ -190,5 +184,4 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
   },
-
 });
