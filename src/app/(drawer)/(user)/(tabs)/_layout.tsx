@@ -1,112 +1,138 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
-import React from 'react';
-import {   useColorScheme, Image, TouchableOpacity, View } from 'react-native';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { Ionicons } from "@expo/vector-icons";
+import { router, Tabs } from "expo-router";
+import React from "react";
+import { Image, TouchableOpacity, useColorScheme, View, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Colors } from '@/constants/theme';
+import { Colors } from "@/constants/theme";
 
 export default function TabLayout() {
   const scheme = useColorScheme();
-  const theme = scheme === 'dark' ? 'dark' : 'light';
+  const theme = scheme === "dark" ? "dark" : "light";
   const colors = Colors[theme];
+
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
       screenOptions={{
         headerShown: true,
-
-        // LOGO ON LEFT
+        headerTitle: "",
+        headerLeftContainerStyle: { paddingLeft: 0, marginLeft: -10 },
         headerLeft: () => (
-          <View style={{ marginLeft: -15 }}>
-            <Image
-              source={require('/assets/logo/FreeSwing.png')}
-              style={{
-                width: 150,
-                height: 55,
-                resizeMode: 'contain',
-              }}
-            />
-          </View>
+          <Image
+            source={require("@/assets/FreeSwing.png")}
+            style={{ width: 150, height: 80, marginLeft: -20, resizeMode: "contain" }}
+          />
         ),
-
-        // SIDEBAR BUTTON ON RIGHT
         headerRight: () => (
           <TouchableOpacity
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            style={{ marginRight: 15 }}
+            onPress={() => navigation.getParent()?.dispatch(DrawerActions.openDrawer())}
+            style={{ marginRight: 30, borderRadius: 20, overflow: "hidden" }}
           >
-            <Ionicons name="menu" size={26} color={colors.text} />
+            <Image
+              source={{ uri: "https://i.pravatar.cc/100" }}
+              style={{ width: 42, height: 42, borderRadius: 21 }}
+            />
           </TouchableOpacity>
         ),
-
-        headerTitle: '', // remove center title
-
-        tabBarActiveTintColor: '#8bc34a',
-        tabBarInactiveTintColor: colors.textSecondary,
-        tabBarStyle: { backgroundColor: colors.background },
+        tabBarActiveTintColor: "#8bc34a",
+        tabBarInactiveTintColor: "#9E9E9E",
+        tabBarStyle: {
+          backgroundColor: "#ffffff",
+          height: 60 + insets.bottom,
+          paddingBottom: insets.bottom,
+        },
       }}
     >
+      {/* DASHBOARD */}
       <Tabs.Screen
-        name="dashboard"
+        name="dashboard/index"
         options={{
-          title: 'Dashboard',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+          title: "Dashboard",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name={focused ? "home" : "home-outline"} size={size} color={color} />
           ),
         }}
       />
 
+      {/* TOURNAMENTS */}
       <Tabs.Screen
-        name="bookGames"
+        name="tournaments/index"
         options={{
-          title: 'Book',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar-outline" size={size} color={color} />
+          title: "Tournaments",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name={focused ? "trophy" : "trophy-outline"} size={size} color={color} />
           ),
         }}
       />
 
+      {/* NEW ROUND - FAB style */}
       <Tabs.Screen
         name="newRound"
         options={{
-          title: 'Start New Round',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add-circle-outline" size={size} color={color} />
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <View style={styles.fabOuter}>
+              <View style={styles.fabInner}>
+                <Ionicons name="add" size={32} color="#fff" />
+              </View>
+            </View>
           ),
         }}
       />
 
-      <Tabs.Screen
-        name="tournament"
-        options={{
-          title: 'Tournaments',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="trophy-outline" size={size} color={color} />
-          ),
-        }}
-      />
-
+      {/* BOOK GAME */}
       <Tabs.Screen
         name="bookGame/index"
         options={{
-          title: 'Book',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar-outline" size={size} color={color} />
+          title: "Book Game",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name={focused ? "calendar" : "calendar-outline"} size={size} color={color} />
           ),
         }}
       />
 
+      {/* SHOP */}
       <Tabs.Screen
         name="shop/index"
         options={{
-          title: 'Pro Shop',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cart-outline" size={size} color={color} />
+          title: "Shop",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons name={focused ? "cart" : "cart-outline"} size={size} color={color} />
           ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  fabOuter: {
+  width: 70,
+  height: 70,
+  borderRadius: 35,
+  backgroundColor: "transparent",
+  borderWidth: 3,
+  borderColor: "#8bc34a",
+  justifyContent: "center",
+  alignItems: "center",
+  marginBottom: 25,
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 5 },
+  shadowOpacity: 0.3,
+  shadowRadius: 5,
+  elevation: 5,
+},
+fabInner: {
+  width: 60,
+  height: 60,
+  borderRadius: 30,
+  backgroundColor: "#8bc34a",
+  justifyContent: "center",
+  alignItems: "center",
+},
+});

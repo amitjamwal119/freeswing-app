@@ -4,11 +4,11 @@
     "slug": "freeswing-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/FreeSwing.png",
     "scheme": "freeswingapp",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/images/icon.png"
+      "icon": "./assets/FreeSwing.png"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +18,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.campzeoapp.freeswingapp"
+      "package": "com.freeswing.app"
     },
     "web": {
       "output": "static",

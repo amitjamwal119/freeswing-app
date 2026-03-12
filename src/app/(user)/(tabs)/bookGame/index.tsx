@@ -85,11 +85,10 @@ export default function BookGameScreen() {
         backgroundColor: isDark ? "#000" : "#f2f2f2",
       }}
     >
-              <Watermark/>
+      <Watermark />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack className="px-4 pt-6 pb-20">
-
           {/* Header */}
           <VStack className="mb-6">
             <ThemedText
@@ -116,23 +115,20 @@ export default function BookGameScreen() {
 
           {/* Bank List */}
           <VStack className="gap-3">
-
             {bankDetails.map((bank, index) => (
-              <Pressable
-                key={index}
-                onPress={() => Linking.openURL(bank.url)}
-              >
+              <Pressable key={index} onPress={() => Linking.openURL(bank.url)}>
                 <Box
                   style={{
                     ...styles.bankRow,
-                    backgroundColor: isDark ? "#111" : "#fff",
+                    // backgroundColor: isDark ? "#111" : "#fff",
+                    borderColor: "#8bc34a",
+                    borderWidth: 1,
+                    borderRadius: 9,
                   }}
                 >
                   <HStack className="items-center justify-between">
-
                     {/* Left Section */}
                     <HStack className="items-center flex gap-5">
-
                       <Image
                         source={bank.img}
                         style={styles.logo}
@@ -159,7 +155,6 @@ export default function BookGameScreen() {
                           {bank.website}
                         </ThemedText>
                       </VStack>
-
                     </HStack>
 
                     {/* Chevron */}
@@ -168,14 +163,11 @@ export default function BookGameScreen() {
                       size={20}
                       color={isDark ? "#aaa" : "#777"}
                     />
-
                   </HStack>
                 </Box>
               </Pressable>
             ))}
-
           </VStack>
-
         </VStack>
       </ScrollView>
     </SafeAreaView>
@@ -183,7 +175,6 @@ export default function BookGameScreen() {
 }
 
 const styles = StyleSheet.create({
-
   bankRow: {
     padding: 14,
     borderRadius: 12,
@@ -193,5 +184,4 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
   },
-
 });
