@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "freeswing-app",
+    "name": "freeswing",
     "slug": "freeswing-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/FreeSwing.png",
-    "scheme": "freeswingapp",
+    "scheme": "freeswing",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/FreeSwing.png"
