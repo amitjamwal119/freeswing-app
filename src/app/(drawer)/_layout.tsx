@@ -73,63 +73,22 @@ function CustomDrawerContent() {
           <Text style={styles.drawerText}>User Profile</Text>
         </TouchableOpacity>
 
-        {/* ADMIN MENU */}
-        {role === "admin" && (
-          <>
-            <TouchableOpacity
-              onPress={() => router.replace("/(drawer)/(admin)/(tabs)/dashboard")}
-              style={styles.drawerItem}
-            >
-              <Ionicons name="speedometer-outline" size={26} color="#2e7d32" />
-              <Text style={styles.drawerText}>Dashboard</Text>
-            </TouchableOpacity>
+        {/* SHOW THESE TWO TABS ALWAYS */}
+        <TouchableOpacity
+          onPress={() => router.replace("/(drawer)/(admin)/subAdmins")}
+          style={styles.drawerItem}
+        >
+          <Ionicons name="people-outline" size={26} color="#2e7d32" />
+          <Text style={styles.drawerText}>Sub Admins</Text>
+        </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => router.replace("/(drawer)/(admin)/(tabs)/allMembers")}
-              style={styles.drawerItem}
-            >
-              <Ionicons name="people-outline" size={26} color="#2e7d32" />
-              <Text style={styles.drawerText}>Members</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              // onPress={() => router.replace("/(drawer)/(admin)/settings")}
-              style={styles.drawerItem}
-            >
-              <Ionicons name="settings-outline" size={26} color="#2e7d32" />
-              <Text style={styles.drawerText}>Admin Settings</Text>
-            </TouchableOpacity>
-          </>
-        )}
-
-        {/* USER MENU */}
-        {role === "user" && (
-          <>
-            <TouchableOpacity
-              onPress={() => router.replace("/(drawer)/(user)/(tabs)/dashboard")}
-              style={styles.drawerItem}
-            >
-              <Ionicons name="home-outline" size={26} color="#2e7d32" />
-              <Text style={styles.drawerText}>Dashboard</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              // onPress={() => router.replace("/(drawer)/(user)/bookings")}
-              style={styles.drawerItem}
-            >
-              <Ionicons name="calendar-outline" size={26} color="#2e7d32" />
-              <Text style={styles.drawerText}>Bookings</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              // onPress={() => router.replace("/(drawer)/(user)/stats")}
-              style={styles.drawerItem}
-            >
-              <Ionicons name="analytics-outline" size={26} color="#2e7d32" />
-              <Text style={styles.drawerText}>Stats</Text>
-            </TouchableOpacity>
-          </>
-        )}
+        <TouchableOpacity
+          onPress={() => router.replace("/(drawer)/(admin)/handicapSetup")}
+          style={styles.drawerItem}
+        >
+          <Ionicons name="analytics-outline" size={26} color="#2e7d32" />
+          <Text style={styles.drawerText}>Player Handicap</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Logout */}

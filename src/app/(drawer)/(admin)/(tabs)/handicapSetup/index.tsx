@@ -52,7 +52,13 @@ export default function PlayerHandicapSetup() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
 
-  const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
+  // ✅ ALL CARDS OPEN BY DEFAULT
+  const [expanded, setExpanded] = useState<{ [key: string]: boolean }>(() =>
+    players.reduce((acc, player) => {
+      acc[player.id] = true;
+      return acc;
+    }, {} as { [key: string]: boolean })
+  );
 
   const togglePlayer = (id: string) => {
     setExpanded((prev) => ({
@@ -63,162 +69,175 @@ export default function PlayerHandicapSetup() {
 
   return (
     <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: isDark ? "#000" : "#f2f2f2",
-      }}
-    >
-      <Watermark />
+  style={{
+    flex: 1,
+    backgroundColor: isDark ? "#000" : "#f2f2f2",
+  }}
+>
+  <Watermark />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <VStack className="px-4">
+  <VStack className="flex-1 px-4">
 
-          {/* HEADER */}
-          <HStack className="items-center justify-between mb-6">
-            <HStack className="items-center">
-              <Pressable onPress={() => router.back()}>
+    {/* HEADER (FIXED) */}
+    <HStack className="items-center justify-between mb-4">
+      <HStack className="items-center">
+        <Pressable onPress={() => router.back()}>
+          <Ionicons
+            name="arrow-back-outline"
+            size={24}
+            color={isDark ? "#fff" : "#020617"}
+          />
+        </Pressable>
+
+        <ThemedText
+          style={{
+            fontSize: 20,
+            fontWeight: "700",
+            marginLeft: 12,
+          }}
+        >
+          Player Handicap Setup
+        </ThemedText>
+      </HStack>
+
+      <Box
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingHorizontal: 12,
+          paddingVertical: 6,
+          borderRadius: 12,
+          backgroundColor: "rgba(139,195,74,0.15)",
+        }}
+      >
+        <Ionicons name="people-outline" size={16} color="#8bc34a" />
+
+        <ThemedText
+          style={{
+            color: "#8bc34a",
+            fontWeight: "700",
+            marginLeft: 6,
+            fontSize: 14,
+          }}
+        >
+          {players.length} Players
+        </ThemedText>
+      </Box>
+    </HStack>
+
+    {/* SCROLLABLE CONTENT */}
+    <ScrollView showsVerticalScrollIndicator={false}>
+
+      <VStack space="md" className="pb-20">
+        {players.map((player) => (
+          <Box
+            key={player.id}
+            className="p-4 rounded-2xl mb-3"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(30,30,30,0.75)"
+                : "rgba(255,255,255,0.75)",
+              borderWidth: 1,
+              borderColor: "#E5E7EB",
+              shadowColor: "#000",
+              shadowOpacity: 0.08,
+              shadowRadius: 6,
+            }}
+          >
+            {/* PLAYER HEADER */}
+            <Pressable onPress={() => togglePlayer(player.id)}>
+              <HStack className="items-center justify-between">
+
+                <HStack className="items-center">
+
+                  {/* AVATAR LETTER */}
+                  <Avatar
+                    size="md"
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#8bc34a",
+                      marginRight: 10,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "rgba(139,195,74,0.15)",
+                    }}
+                  >
+                    <ThemedText
+                      style={{
+                        fontWeight: "700",
+                        fontSize: 16,
+                        color: "#8bc34a",
+                      }}
+                    >
+                      {player.name.charAt(0).toUpperCase()}
+                    </ThemedText>
+                  </Avatar>
+
+                  <ThemedText style={{ fontWeight: "700", fontSize: 16 }}>
+                    {player.name}
+                  </ThemedText>
+
+                </HStack>
+
                 <Ionicons
-                  name="arrow-back-outline"
-                  size={24}
-                  color={isDark ? "#fff" : "#020617"}
+                  name={
+                    expanded[player.id]
+                      ? "chevron-up-outline"
+                      : "chevron-down-outline"
+                  }
+                  size={22}
+                  color={isDark ? "#fff" : "#000"}
                 />
-              </Pressable>
 
-              <ThemedText
-                style={{
-                  fontSize: 20,
-                  fontWeight: "700",
-                  marginLeft: 12,
-                }}
-              >
-                Player Handicap Setup
-              </ThemedText>
-            </HStack>
+              </HStack>
+            </Pressable>
 
-            {/* PLAYER COUNT */}
-            <Box
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingHorizontal: 12,
-                paddingVertical: 6,
-                borderRadius: 12,
-                backgroundColor: "rgba(139,195,74,0.15)",
-              }}
-            >
-              <Ionicons name="people-outline" size={16} color="#8bc34a" />
+            {/* DETAILS */}
+            {expanded[player.id] && (
+              <>
+                <HStack className="items-center mt-3">
+                  <Ionicons
+                    name="mail-outline"
+                    size={16}
+                    color={isDark ? "#9CA3AF" : "#6B7280"}
+                  />
+                  <ThemedText style={{ marginLeft: 8, fontSize: 14 }}>
+                    {player.email}
+                  </ThemedText>
+                </HStack>
 
-              <ThemedText
-                style={{
-                  color: "#8bc34a",
-                  fontWeight: "700",
-                  marginLeft: 6,
-                  fontSize: 14,
-                }}
-              >
-                {players.length} Players
-              </ThemedText>
-            </Box>
-          </HStack>
+                <HStack className="items-center mt-2">
+                  <Ionicons
+                    name="trophy-outline"
+                    size={16}
+                    color={isDark ? "#9CA3AF" : "#6B7280"}
+                  />
+                  <ThemedText style={{ marginLeft: 8, fontSize: 14 }}>
+                    Current Handicap: {player.handicap}
+                  </ThemedText>
+                </HStack>
 
-          {/* PLAYER LIST */}
-          <VStack space="md">
-            {players.map((player) => (
-              <Box
-                key={player.id}
-                className="p-4 rounded-2xl mb-3"
-                style={{
-                  backgroundColor: isDark
-                    ? "rgba(30,30,30,0.75)"
-                    : "rgba(255,255,255,0.75)",
-                  borderWidth: 1,
-                  borderColor: "#E5E7EB",
-                  shadowColor: "#000",
-                  shadowOpacity: 0.08,
-                  shadowRadius: 6,
-                }}
-              >
-                {/* PLAYER HEADER */}
-                <Pressable onPress={() => togglePlayer(player.id)}>
-                  <HStack className="items-center justify-between">
+                <HStack className="items-center mt-2">
+                  <Ionicons
+                    name="analytics-outline"
+                    size={16}
+                    color={isDark ? "#9CA3AF" : "#6B7280"}
+                  />
+                  <ThemedText style={{ marginLeft: 8, fontSize: 14 }}>
+                    Calculated Average: {player.average}
+                  </ThemedText>
+                </HStack>
 
-                    <HStack className="items-center">
-                      <Avatar
-                        size="md"
-                        style={{
-                          borderWidth: 2,
-                          borderColor: "#8bc34a",
-                          marginRight: 10,
-                        }}
-                      >
-                        <UserIcon size={22} color="#8bc34a" />
-                      </Avatar>
+                <Divider style={{ marginVertical: 10 }} />
+              </>
+            )}
+          </Box>
+        ))}
+      </VStack>
 
-                      <ThemedText style={{ fontWeight: "700", fontSize: 16 }}>
-                        {player.name}
-                      </ThemedText>
-                    </HStack>
+    </ScrollView>
 
-                    <Ionicons
-                      name={
-                        expanded[player.id]
-                          ? "chevron-up-outline"
-                          : "chevron-down-outline"
-                      }
-                      size={22}
-                      color={isDark ? "#fff" : "#000"}
-                    />
-                  </HStack>
-                </Pressable>
-
-                {/* DETAILS */}
-                {expanded[player.id] && (
-                  <>
-                    <HStack className="items-center mt-3">
-                      <Ionicons
-                        name="mail-outline"
-                        size={16}
-                        color={isDark ? "#9CA3AF" : "#6B7280"}
-                      />
-
-                      <ThemedText style={{ marginLeft: 8, fontSize: 14 }}>
-                        {player.email}
-                      </ThemedText>
-                    </HStack>
-
-                    <HStack className="items-center mt-2">
-                      <Ionicons
-                        name="trophy-outline"
-                        size={16}
-                        color={isDark ? "#9CA3AF" : "#6B7280"}
-                      />
-
-                      <ThemedText style={{ marginLeft: 8, fontSize: 14 }}>
-                        Current Handicap: {player.handicap}
-                      </ThemedText>
-                    </HStack>
-
-                    <HStack className="items-center mt-2">
-                      <Ionicons
-                        name="analytics-outline"
-                        size={16}
-                        color={isDark ? "#9CA3AF" : "#6B7280"}
-                      />
-
-                      <ThemedText style={{ marginLeft: 8, fontSize: 14 }}>
-                        Calculated Average: {player.average}
-                      </ThemedText>
-                    </HStack>
-
-                    <Divider style={{ marginVertical: 10 }} />
-                  </>
-                )}
-              </Box>
-            ))}
-          </VStack>
-
-        </VStack>
-      </ScrollView>
-    </SafeAreaView>
+  </VStack>
+</SafeAreaView>
   );
 }

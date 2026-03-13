@@ -165,9 +165,20 @@ export default function AllMembersPage() {
                           borderWidth: 2,
                           borderColor: "#8bc34a",
                           marginRight: 10,
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: "rgba(139,195,74,0.15)",
                         }}
                       >
-                        <UserIcon size={22} color="#8bc34a" />
+                        <ThemedText
+                          style={{
+                            fontWeight: "700",
+                            fontSize: 16,
+                            color: "#8bc34a",
+                          }}
+                        >
+                          {member.username.charAt(0).toUpperCase()}
+                        </ThemedText>
                       </Avatar>
 
                       <ThemedText style={{ fontWeight: "700", fontSize: 16 }}>
